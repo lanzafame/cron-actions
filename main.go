@@ -42,7 +42,7 @@ func main() {
 		return
 	}
 
-	fmt.Println(body)
+	fmt.Printf("%s\n", body)
 
 	//TODO finish timer
 
