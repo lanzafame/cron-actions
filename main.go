@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"time"
 )
 
 const imageCID = "bafybeibtbsrwnifl5drdzmu2v5fgcyq4othrlx3h3shcvua2om25gnfmvy"
@@ -16,7 +17,7 @@ func main() {
 
 	client := &http.Client{}
 
-	url := fmt.Sprintf("https://api.nft.storage/%s", imageCID)
+	url := fmt.Sprintf("https://%s.ipfs.io", imageCID)
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -24,11 +25,8 @@ func main() {
 		return
 	}
 
-	tok := os.Getenv("NFT_STORAGE_TOKEN")
-	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", tok))
-	fmt.Println("auth header value", req.Header.Values("Authorization"))
-
 	//TODO start timer
+	start := time.Now()
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -43,10 +41,27 @@ func main() {
 		return
 	}
 
-	fmt.Printf("%s\n", body)
+	retrievalTime := time.Now() - start
+	fmt.Println(retrievalTime)
 
 	//TODO finish timer
 
 	//TODO push metric
+
+}
+
+func nftGet() {
+
+	url := fmt.Sprintf("https://api.nft.storage/%s", imageCID)
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		fmt.Printf("err: %w\n", err)
+		return
+	}
+
+	tok := os.Getenv("NFT_STORAGE_TOKEN")
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", tok))
+	// fmt.Println("auth header value", req.Header.Values("Authorization"))
 
 }
