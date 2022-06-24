@@ -5,7 +5,6 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"strings"
 )
 
 const imageCID = "bafybeibtbsrwnifl5drdzmu2v5fgcyq4othrlx3h3shcvua2om25gnfmvy"
@@ -17,7 +16,7 @@ func main() {
 
 	client := &http.Client{}
 
-	url := strings.Join("https://api.nft.storage/", imageCID)
+	url := fmt.Sprintf("https://api.nft.storage/%s", imageCID)
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
