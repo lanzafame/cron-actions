@@ -41,7 +41,7 @@ func main() {
 		return
 	}
 
-	retrievalTime := time.Now() - start
+	retrievalTime := time.Now().Sub(start)
 	fmt.Println(retrievalTime)
 
 	//TODO finish timer
