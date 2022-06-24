@@ -25,7 +25,7 @@ func main() {
 	}
 
 	tok := os.Getenv("NFT_STORAGE_TOKEN")
-	req.Header.Add("Authorization", tok)
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", tok))
 
 	//TODO start timer
 
